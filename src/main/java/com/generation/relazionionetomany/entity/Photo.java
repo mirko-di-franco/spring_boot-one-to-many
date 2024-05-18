@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -24,6 +26,16 @@ public class Photo {
 	
 	@Column(columnDefinition = "TEXT")
 	private String description;
+	
+	
+	// 2. CREO LA RELAZIONE. Many to one va inserita nella tabella che ha la foreign key
+	@ManyToOne
+	// GLI DICO QUAL'è LA FOREIGN KEY CHE VERRà COLLEGATA ALL'ID DI USER
+	@JoinColumn(name = "user_id")
+	//RELAZIONE CON L'ENTITÁ DELLA CLASSE USER
+	private User user;
+	
+	
 	
 	
 	
@@ -57,6 +69,14 @@ public class Photo {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	
