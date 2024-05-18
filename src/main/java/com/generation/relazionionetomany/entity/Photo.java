@@ -1,5 +1,7 @@
 package com.generation.relazionionetomany.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,14 +33,24 @@ public class Photo {
 	// 2. CREO LA RELAZIONE. Many to one va inserita nella tabella che ha la foreign key
 	@ManyToOne
 	// GLI DICO QUAL'è LA FOREIGN KEY CHE VERRà COLLEGATA ALL'ID DI USER
-	@JoinColumn(name = "user_id")
+	// il name indica che la tabella user_id sarà utilizzata come chiave esterna per la relazione
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	//RELAZIONE CON L'ENTITÁ DELLA CLASSE USER
+	@JsonIgnore
 	private User user;
 	
 	
+	public Photo() {}
 	
 	
-	
+	public Photo(int id, String url, String title, String description, User user) {
+		this.id = id;
+		this.url = url;
+		this.title = title;
+		this.description = description;
+		this.user = user;
+	}
+
 	public int getId() {
 		return id;
 	}
